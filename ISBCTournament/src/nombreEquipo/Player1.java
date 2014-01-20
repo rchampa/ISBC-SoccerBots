@@ -7,6 +7,7 @@ public class Player1 extends Behaviour{
 
 	@Override
 	public void configure() {
+		//At this point robotApi is not allowed to use yet.
 		// TODO Auto-generated method stub
 		
 	}

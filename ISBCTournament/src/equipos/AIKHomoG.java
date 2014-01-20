@@ -184,9 +184,7 @@ public class AIKHomoG extends ControlSystemSS {
         Vec2 v = new Vec2(target);
         v.sub(ball);
         double alpha = v.t + Math.PI;
-        v = new Vec2((1.0/Math.sqrt(2)) * abstract_robot.RADIUS
-                     * Math.cos(alpha),
-                     (1.0/Math.sqrt(2)) * abstract_robot.RADIUS
+        v = new Vec2((1.0/Math.sqrt(2)) * abstract_robot.RADIUS * Math.cos(alpha), (1.0/Math.sqrt(2)) * abstract_robot.RADIUS
                      * Math.sin(alpha));
         alpha = angle(ball, v);
         if (alpha < Math.PI / 2.0) {

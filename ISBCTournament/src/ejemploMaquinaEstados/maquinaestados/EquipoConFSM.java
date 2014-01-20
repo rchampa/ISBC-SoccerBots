@@ -1,7 +1,7 @@
 package ejemploMaquinaEstados.maquinaestados;
 
-import teams.ucmTeam.UCMPlayer;
 import teams.ucmTeam.TeamManager;
+import teams.ucmTeam.UCMPlayer;
 
 /**
  * Equipo en el que todos los jugadores emplean un comportamiento gobernado por una máquina de estados
@@ -10,8 +10,9 @@ import teams.ucmTeam.TeamManager;
  */
 public class EquipoConFSM extends UCMPlayer{
 
+	
 	@Override
-	protected TeamManager getTeamManager() {
+	protected TeamManager createTeamManager() {
 		TeamManager t=new Entrenador();
 		return t;
 	}
