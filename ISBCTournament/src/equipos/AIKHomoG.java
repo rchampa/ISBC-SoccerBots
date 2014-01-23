@@ -202,8 +202,7 @@ public class AIKHomoG extends ControlSystemSS {
     private double getFreeDirection(Vec2 goal, double range, long time) {
         ObstacleList obstacles = new ObstacleList();
         for (int k = 0; k < 2; k++) {
-            Vec2[] ps = (k == 0) ? abstract_robot.getOpponents(time) :
-                                    abstract_robot.getTeammates(time);
+            Vec2[] ps = (k == 0) ? abstract_robot.getOpponents(time) :  abstract_robot.getTeammates(time);
             Vec2[] players = new Vec2[ps.length];
             for (int i = 0; i < players.length; i++) {
                 players[i] = new Vec2(ps[i]);

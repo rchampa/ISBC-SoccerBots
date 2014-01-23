@@ -1,7 +1,7 @@
-package ejemploMaquinaEstados.maquinaestados;
+package rc.team;
 
-import ejemploMaquinaEstados.maquinaestados.fsm.Estado;
-import ejemploMaquinaEstados.maquinaestados.fsm.MaquinaEstados;
+import rc.team.maquinaestados.Estado;
+import rc.team.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 /**
@@ -22,7 +22,7 @@ public class GoToBall extends Estado {
 
 	@Override
 	protected void onInit(RobotAPI robot) {
-		robot.setDisplayString(GoToBall.class.getSimpleName());	
+		robot.setDisplayString(robot.getPlayerNumber()+" "+GoToBall.class.getSimpleName());	
 	}
 
 	@Override

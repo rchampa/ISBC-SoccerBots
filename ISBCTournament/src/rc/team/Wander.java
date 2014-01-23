@@ -1,7 +1,7 @@
-package ejemploMaquinaEstados.maquinaestados;
+package rc.team;
 
-import ejemploMaquinaEstados.maquinaestados.fsm.Estado;
-import ejemploMaquinaEstados.maquinaestados.fsm.MaquinaEstados;
+import rc.team.maquinaestados.Estado;
+import rc.team.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 /**
@@ -24,7 +24,7 @@ public class Wander extends Estado {
 	@Override
 	protected void onInit(RobotAPI robot) {
 		initTime = robot.getTimeStamp();
-		robot.setDisplayString(Wander.class.getSimpleName());
+		robot.setDisplayString(robot.getPlayerNumber()+" "+Wander.class.getSimpleName());
 		robot.setSteerHeading(Math.random()*2*3.141598);
 		robot.setSpeed(1.0);
 	}

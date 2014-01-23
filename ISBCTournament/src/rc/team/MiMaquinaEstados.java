@@ -1,6 +1,6 @@
-package ejemploMaquinaEstados.maquinaestados;
+package rc.team;
 
-import ejemploMaquinaEstados.maquinaestados.fsm.MaquinaEstados;
+import rc.team.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 /**

@@ -1,6 +1,7 @@
-package ejemploMaquinaEstados.maquinaestados;
+package rc.team;
 
-import ejemploMaquinaEstados.maquinaestados.fsm.MaquinaEstados;
+
+import rc.team.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.Behaviour;
 import teams.ucmTeam.RobotAPI;
 import EDU.gatech.cc.is.util.Vec2;
@@ -47,6 +48,7 @@ public class ComportamientoFSM extends Behaviour{
 
 	@Override
 	public int takeStep() {
+		
 		Vec2 ball= myRobotAPI.getBall();		
 		if (ball.r<0.5) {
 			// Si estoy lo suficientemente cerca cambio a GoToBall
