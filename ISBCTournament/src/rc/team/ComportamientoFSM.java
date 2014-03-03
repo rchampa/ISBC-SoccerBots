@@ -49,17 +49,34 @@ public class ComportamientoFSM extends Behaviour{
 	@Override
 	public int takeStep() {
 		
-		Vec2 ball= myRobotAPI.getBall();		
-		if (ball.r<0.5) {
-			// Si estoy lo suficientemente cerca cambio a GoToBall
-			maquina.cambiarEstado(GoToBall.class.getSimpleName());			
+		if(myRobotAPI.getPlayerNumber()==0){
+			maquina.cambiarEstado(Casillas.class.getSimpleName());
+			maquina.takeStep();
+			return RobotAPI.ROBOT_OK;
 		}
-		else
-			// En otro caso paso a Wander
-			maquina.cambiarEstado(Wander.class.getSimpleName());
-		// delego siempre en la máquina de estados para ejecutar el takeStep
-		maquina.takeStep();
-		return RobotAPI.ROBOT_OK;
+		else if(myRobotAPI.getPlayerNumber()==1){
+			maquina.cambiarEstado(Maldini.class.getSimpleName());
+			maquina.takeStep();
+			return RobotAPI.ROBOT_OK;
+		}
+		else{
+			maquina.cambiarEstado(Inutil.class.getSimpleName());
+			maquina.takeStep();
+			return RobotAPI.ROBOT_OK;
+		}
+		
+//		
+//		Vec2 ball= myRobotAPI.getBall();		
+//		if (ball.r<0.5) {
+//			// Si estoy lo suficientemente cerca cambio a GoToBall
+//			maquina.cambiarEstado(GoToBall.class.getSimpleName());			
+//		}
+//		else
+//			// En otro caso paso a Wander
+//			maquina.cambiarEstado(Wander.class.getSimpleName());
+//		// delego siempre en la máquina de estados para ejecutar el takeStep
+		//maquina.takeStep();
+		//return RobotAPI.ROBOT_OK;
 	}
 
 }

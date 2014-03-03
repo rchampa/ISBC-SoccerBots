@@ -12,5 +12,7 @@
 	<classpathentry kind="lib" path="lib/soccerbots.jar"/>
 	<classpathentry kind="lib" path="lib/subsuncion.jar"/>
 	<classpathentry kind="lib" path="lib/ucmteam.jar"/>
+	<classpathentry kind="src" path="/jCOLIBRI2"/>
+	<classpathentry kind="lib" path="/jCOLIBRI2/lib/databaseconnector/hsqldb.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,6 +3,7 @@
 	<name>ISBCTournament</name>
 	<comment></comment>
 	<projects>
+		<project>jCOLIBRI2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

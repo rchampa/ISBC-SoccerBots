@@ -2,7 +2,6 @@ package ejemploMaquinaEstados.maquinaestados;
 
 import teams.ucmTeam.Behaviour;
 import teams.ucmTeam.TeamManager;
-import ejemploMaquinaEstados.maquinaestados.ComportamientoFSM;
 
 
 /**

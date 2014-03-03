@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+<class name="jcolibri.soccerbots.GameSolution" table="Game">
+	<id name="id" column="caseId">
+	</id>
+	<property name="estrategia" column="estrategia"/>
+	<property name="valoracion" column="valoracion"/>	
+</class>
+
+</hibernate-mapping>
