@@ -49,6 +49,7 @@ public class Entrenador extends TeamManager {
 
 	@Override
 	public void onTakeStep() {
+	
 		
 		if(cbr_activado){
 		
@@ -56,7 +57,7 @@ public class Entrenador extends TeamManager {
 			
 			tiempo_actual = capitan.getMatchTotalTime()-capitan.getMatchRemainingTime();
 			
-			if((tiempo_actual-tiempo_ultima_consulta)>=N){// mayor que n segundos
+			if((tiempo_actual-tiempo_ultima_consulta)>=N || hayGol(capitan)){// mayor que n segundos
 				
 				diferencia_goles_act = capitan.getMyScore()-capitan.getOpponentScore();
 				
@@ -64,7 +65,7 @@ public class Entrenador extends TeamManager {
 				consulta.setDiferenciaGoles(diferencia_goles_act);
 				consulta.setTercio_actual(calcularTercio());
 							
-				tiempo_ultima_consulta = tiempo_actual;
+				
 				
 				Recomendacion recomendacion_actual = recomender.iniciar_jcolibri(consulta);
 				
@@ -78,13 +79,20 @@ public class Entrenador extends TeamManager {
 				diferencia_goles_ant = diferencia_goles_act;
 				consulta_ant = consulta;
 				recomendacion_ant = recomendacion_actual;
+				
+				tiempo_ultima_consulta = tiempo_actual;
 			}
 		
 		}
 		
 	}
 	
-	public void aprendizaje(Recomendacion recomendacion_actual){
+	private boolean hayGol(RobotAPI capitan){
+		
+		return (capitan.getJustScored()==-1) || (capitan.getJustScored()==1);
+	}
+	
+	private void aprendizaje(Recomendacion recomendacion_actual){
 		CBRCase casoaprendido = new CBRCase();
 		
 		consulta_ant.setId(""+num_nuevo_caso);

@@ -86,7 +86,7 @@ object EDU.gatech.cc.is.simulation.ObstacleInvisibleSim -2.047 -1.4396 0 1.0
 // from getting jumpy on slow machines, or when/if your process gets 
 // swapped out. 
 
-maxtimestep 4 
+maxtimestep 14 
 
 //====== 
 // TIMEOUT 
@@ -99,7 +99,7 @@ maxtimestep 4
 // is reached. If no timeout statement is given, the default is no 
 // termination. 
 // 
-timeout 30000 // ten seconds 
+timeout 120000 // ten seconds 
 
 //====== 
 // TIME 
@@ -175,14 +175,14 @@ robot EDU.gatech.cc.is.abstractrobot.SocSmallSim rc.team.EquipoConFSM
 
 //======EAST TEAM====== 
 eastname EastTeam 
-robot EDU.gatech.cc.is.abstractrobot.SocSmallSim ejemploMaquinaEstados.sinmaquinaestados.EquipoSinFSM 
+robot EDU.gatech.cc.is.abstractrobot.SocSmallSim t101115.SkitHall 
 1.2 0 0 xff3333 xffff66 2 
-robot EDU.gatech.cc.is.abstractrobot.SocSmallSim ejemploMaquinaEstados.sinmaquinaestados.EquipoSinFSM 
+robot EDU.gatech.cc.is.abstractrobot.SocSmallSim t101115.SkitHall 
 .5 0 0 xff3333 xffff66 2 
-robot EDU.gatech.cc.is.abstractrobot.SocSmallSim ejemploMaquinaEstados.sinmaquinaestados.EquipoSinFSM 
+robot EDU.gatech.cc.is.abstractrobot.SocSmallSim t101115.SkitHall 
 .15 .5 0 xff3333 xffff66 2 
-robot EDU.gatech.cc.is.abstractrobot.SocSmallSim ejemploMaquinaEstados.sinmaquinaestados.EquipoSinFSM 
+robot EDU.gatech.cc.is.abstractrobot.SocSmallSim t101115.SkitHall 
 .15 0 0 xff3333 xffff66 2 
-robot EDU.gatech.cc.is.abstractrobot.SocSmallSim ejemploMaquinaEstados.sinmaquinaestados.EquipoSinFSM 
+robot EDU.gatech.cc.is.abstractrobot.SocSmallSim t101115.SkitHall 
 .15 -.5 0 xff3333 xffff66 2 
 
