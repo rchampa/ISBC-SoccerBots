@@ -20,7 +20,8 @@ public abstract class Estado {
 	 * Robot que se va a manipular
 	 */
 	private RobotAPI robot;
-	protected Vec2 porteria;
+	protected Vec2 porteria_nuestra;
+	protected Vec2 porteria_contraria;
 	protected Vec2 balon;
 	protected Vec2 posicion;
 	protected final double ROBOT_RADIO = 0.06d;
@@ -68,7 +69,8 @@ public abstract class Estado {
 	 * @param robot RobotAPI controlada por el estado
 	 */
 	public final void takeStep() {
-		porteria = robot.getOurGoal();
+		porteria_nuestra = robot.getOurGoal();
+		porteria_contraria = robot.getOpponentsGoal();
 		balon = robot.getBall();
 		posicion = robot.getPosition();
 		this.onTakeStep(robot);
@@ -102,7 +104,7 @@ public abstract class Estado {
 	protected abstract void onTakeStep(RobotAPI robot);
 	
 	
-	/////////////////7
+	/////////////////
 	protected double calcular_distancia(Vec2 v1, Vec2 v2) {
 		return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x)	+ (v2.y - v1.y) * (v2.y - v1.y));
 	}

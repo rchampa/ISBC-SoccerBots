@@ -37,7 +37,7 @@ public class Maldini extends Estado {
 //		Vec2 balon = robot.getBall();
 //		Vec2 posicion = robot.getPosition();
 
-		this.estado = detectar_estado(robot, balon, porteria, posicion);
+		this.estado = detectar_estado(robot, balon, porteria_nuestra, posicion);
 		
 		if (estado == Estado.ESPERA) {
 			//System.out.println("estado=espera");
