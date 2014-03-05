@@ -59,6 +59,16 @@ public class ComportamientoFSM extends Behaviour{
 			maquina.takeStep();
 			return RobotAPI.ROBOT_OK;
 		}
+		else if(myRobotAPI.getPlayerNumber()==2){
+			maquina.cambiarEstado(Bloqueador.class.getSimpleName());
+			maquina.takeStep();
+			return RobotAPI.ROBOT_OK;
+		}
+		else if(myRobotAPI.getPlayerNumber()==3){
+			maquina.cambiarEstado(PatrickVieira.class.getSimpleName());
+			maquina.takeStep();
+			return RobotAPI.ROBOT_OK;
+		}
 		else{
 			maquina.cambiarEstado(Inutil.class.getSimpleName());
 			maquina.takeStep();

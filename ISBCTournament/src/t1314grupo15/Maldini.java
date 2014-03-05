@@ -44,7 +44,7 @@ public class Maldini extends Estado {
 			robot.setSteerHeading(balon.t);
 			robot.setSpeed(1d);
 			if (robot.canKick()) {
-				if (estaDeFrente(robot.getSteerHeading(), FIELD_SIDE)) {
+				if (estaMirandoDeFrente(robot.getSteerHeading())) {
 					robot.kick();
 				}
 			}
@@ -69,11 +69,7 @@ public class Maldini extends Estado {
 
 	}
 	
-	private boolean elBalonEstaDetras(Vec2 balon, int lado){
-		
-		return (balon.x * lado) > 0d;	
-		
-	}
+	
 	private void detectar_estado(RobotAPI robot, Vec2 balon, Vec2 porteria, Vec2 posicion){
 		
 		double x = balon.x - porteria.x;
@@ -86,25 +82,6 @@ public class Maldini extends Estado {
 
 		this.Maldini.setx(nuevaX);
 		this.Maldini.sety(nuevaY);
-
-		/*
-		System.out.println("FIELD_SIDE="+FIELD_SIDE);
-		System.out.println("porteria_x="+porteria.x);
-		System.out.println("porteria_y="+porteria.y);
-		System.out.println("porteria_t="+porteria.t);
-		System.out.println("porteria_r="+porteria.r);
-		System.out.println("balon_x="+balon.x);
-		System.out.println("balon_y="+balon.y);
-		System.out.println("balon_t="+balon.t);
-		System.out.println("balon_r="+balon.r);
-		System.out.println("alfa="+alfa);
-		System.out.println("distancia="+distancia);
-		System.out.println("cos(alfa)="+Math.cos(alfa));
-		*/
-//		System.out.println("x="+Maldini.x);
-//		System.out.println("y="+Maldini.y);
-//		System.out.println("r="+Maldini.r);
-//		System.out.println("t="+Maldini.t);
 
 
 		//Se detecta el estado

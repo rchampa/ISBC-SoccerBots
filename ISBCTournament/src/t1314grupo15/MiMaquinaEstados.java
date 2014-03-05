@@ -22,6 +22,8 @@ public class MiMaquinaEstados extends MaquinaEstados {
 		this.crearNuevoEstado(Casillas.class.getSimpleName(), new Casillas(this));
 		this.crearNuevoEstado(Maldini.class.getSimpleName(), new Maldini(this));
 		this.crearNuevoEstado(Inutil.class.getSimpleName(), new Inutil(this));
+		this.crearNuevoEstado(PatrickVieira.class.getSimpleName(), new PatrickVieira(this));
+		this.crearNuevoEstado(Bloqueador.class.getSimpleName(), new Bloqueador(this));
 	}
 
 	@Override

@@ -8,13 +8,17 @@ import teams.ucmTeam.RobotAPI;
 public class PatrickVieira extends Estado{
 	
 	private enum EstadoPatrick {
-					ESPERA,//Espera a que el balón este en su zona
+					ESPERA,//Espera a que el balon este en su zona
+					DESCOLOCADO,//no tiene el balon y no está bien colocado( cuando esté colocado pasará a espera)
 					ACTIVO,//El balon está en su zona y va a por él
-					DESCOLOCADO//no tiene el balon y no está bien colocado( cuando esté colocado pasará a espera)
 					};
 	EstadoPatrick estadoActual;
-	Vec2 vector = new Vec2();
+	Vec2 vector_patrick = new Vec2();
 	Vec2 centro_campo = new Vec2(0,0);
+
+	Vec2 v_limite = new Vec2(LIMITE2,0);
+	
+	final double RADIO_ACCION = 1d;
 
 	public PatrickVieira(MaquinaEstados miMaquina) {
 		super(miMaquina);
@@ -23,7 +27,7 @@ public class PatrickVieira extends Estado{
 
 	@Override
 	protected void onInit(RobotAPI robot) {
-		robot.setDisplayString("Maldini");
+		robot.setDisplayString("Vieira");
 		
 	}
 
@@ -36,25 +40,90 @@ public class PatrickVieira extends Estado{
 	protected void onTakeStep(RobotAPI robot) {
 		
 		
-		detectar_estado(robot, balon, porteria_nuestra, posicion);
+		detectar_estado(robot);
 		
 		if(estadoActual==EstadoPatrick.DESCOLOCADO){
+			//Va hacia el centro del campo
+			Vec2 aux = new Vec2(centro_campo);
+			aux.sub(posicion);
+			robot.setSteerHeading(aux.t);
 			robot.setSpeed(VEL_NORMAL);
-			robot.setSteerHeading(centro_campo.t);
+			robot.setDisplayString("DESCOLOCADO");
 		}
 		else if(estadoActual==EstadoPatrick.ACTIVO){
 			robot.setSteerHeading(balon.t);
+			//Va hacia el valon
 			robot.setSpeed(VEL_MAX);
+			if(balon.r<0.2){
+				robot.setBehindBall(robot.getOpponentsGoal());
+				if(robot.canKick())
+					robot.kick();
+			}
+			robot.setDisplayString("ACTIVO");
 		}
 		else{//EstadoPatrick.ESPERA
 			robot.setSpeed(VEL_STOP);
+			//SE est� quiero pero mira siempre al bal�n
 			robot.setSteerHeading(balon.t);
+			robot.setDisplayString("ESPERA");
 		}
 		
+		if (robot.blocked()) {
+			robot.avoidCollisions();
+		}
+		//robot.setDisplayString(""+posicion.x);
 	}
 
-	protected void detectar_estado(RobotAPI robot, Vec2 balon, Vec2 porteria_nuestra, Vec2 posicion){
+	protected void detectar_estado(RobotAPI robot){
 		
+		if(balon.r<RADIO_ACCION){
+			estadoActual = EstadoPatrick.ACTIVO;
+			if(posicion.x<LIMITE2){
+				estadoActual = EstadoPatrick.DESCOLOCADO;
+				System.out.println("AAAAAAAAAAAAAAAAAAa");
+			}
+			return;
+		}
+		else{
+			estadoActual = EstadoPatrick.DESCOLOCADO;
+			
+			if(posicion.x<LIMITE2){
+				estadoActual = EstadoPatrick.ESPERA;
+				System.out.println("AAAAAAAAAAAAAAAAAAa");
+			}
+			
+		}
+		
+		
+		
+		
+//		
+//		if(estaMirandoDeFrente(posicion.t)){
+//			 
+//		}
+//		else{//Si esta mirando hacia su porteria, es que el balon esta detr�s
+//			v_limite.sety(balon.y);
+//			distancia_permitida = calcular_distancia(posicion, v_limite);
+//			
+//			if(){
+//				
+//			}
+//		}
+//		 
+//		
+//		boolean balonEstaDetras = elBalonEstaDetrasDelJugador();
+//		
+//		boolean cercaAlBalon = robot.closestToBall(); 
+		
+//		if(balonEstaDetras){
+//			double distancia = balon.r;
+//			if(distancia>)
+//				estadoActual = EstadoPatrick.DESCOLOCADO;
+//		}
+//		else{
+//			
+//		}
+	
 		
 		
 	}

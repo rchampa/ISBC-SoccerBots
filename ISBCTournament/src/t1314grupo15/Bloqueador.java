@@ -37,7 +37,8 @@ public class Bloqueador extends Estado{
 	@Override
 	protected void onInit(RobotAPI robot) {
 		FIELD_SIDE = robot.getFieldSide();
-		robot.setDisplayString(""+(robot.getPlayerRadius()*2));
+		//robot.setDisplayString(""+(robot.getPlayerRadius()*2));
+		robot.setDisplayString("Bloqueador");
 	}
 
 	@Override

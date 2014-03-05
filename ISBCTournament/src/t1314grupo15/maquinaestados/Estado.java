@@ -68,7 +68,7 @@ public abstract class Estado {
 		this.robot = robot;
 		FIELD_SIDE = robot.getFieldSide();
 		LIMITE1 = 1.145d*FIELD_SIDE;
-		LIMITE2 = ancho_del_campo/3d;
+		LIMITE2 = (ancho_del_campo/5d)*FIELD_SIDE;
 		onInit(this.robot);
 	}
 
@@ -127,28 +127,70 @@ public abstract class Estado {
 	    	return (robot.canKick()) && (pelota.r < -0.1D);
 	    }
 	}
+
+
+//	/**
+//	 * Devuelve a donde mira el robot
+//	 * @param angulo que tiene el robot
+//	 * @return -1 si mira hacia el oeste y 1 si mira al este
+//	 */
+//	protected int aDondeMiraElRobot(double angulo) {
+//		double primer_cuadrante = Math.PI/2d;
+//		double segundo_cuadrante = Math.PI;
+//		double tercer_cuadrante = -Math.PI/2d; 
+//		double cuarto_cuadrante = 0d;
+//		
+//		boolean lado_oeste = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
+//									||
+//									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
+////		
+////		boolean lado_este =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
+////								||
+////								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
+//		
+//		if(lado_oeste)
+//			return -1;
+//		else//lado este
+//			return 1;
+//
+//
+//	}
 	
-	protected boolean estaDeFrente(double angulo, int lado) {
+	protected boolean estaMirandoDeFrente(double angulo) {
 		double primer_cuadrante = Math.PI/2d;
 		double segundo_cuadrante = Math.PI;
 		double tercer_cuadrante = -Math.PI/2d; 
 		double cuarto_cuadrante = 0d;
 		
-		boolean lado_izquierdo = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
+		boolean lado_oeste = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
 									||
 									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
 		
-		boolean lado_derecho =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
+		boolean lado_este =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
 								||
 								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
 		//Si estï¿½ a la derecha
-		if (lado == 1) {
-			return lado_izquierdo;
+		if (this.FIELD_SIDE == 1) {
+			return lado_oeste;//Si cumple las condiciones del lado oeste entonces está mirando de frente
 		}
 		//Si estï¿½ a la izquierda
-		return lado_derecho;
+		return lado_este;//Si cumple las condiciones del lado este entonces está mirando de frente
 	}
 	
+	protected boolean estaEnAreaDelRadio(Vec2 v_radio, Vec2 v){
+		
+		double radio = v_radio.r;
+		double distancia = calcular_distancia(v_radio,v);
+		
+		return radio<=distancia;
+		
+	}
+	
+	protected boolean elBalonEstaDetrasDelJugador(){
+		
+		return (this.balon.x * FIELD_SIDE) > 0d;	
+		
+	}
 	
 
 }

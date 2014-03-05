@@ -45,7 +45,7 @@ public class Casillas extends Estado{
 			robot.setSteerHeading(balon.t);
 			robot.setSpeed(1d);
 			if (robot.canKick()) {
-				if (estaDeFrente(robot.getSteerHeading(), FIELD_SIDE)) {
+				if (estaMirandoDeFrente(robot.getSteerHeading())) {
 					robot.kick();
 				}
 			}
