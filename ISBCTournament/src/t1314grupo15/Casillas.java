@@ -1,6 +1,5 @@
 package t1314grupo15;
 
-import EDU.gatech.cc.is.util.Vec2;
 import t1314grupo15.maquinaestados.Estado;
 import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
@@ -42,11 +41,7 @@ public class Casillas extends Estado{
 
 	@Override
 	protected void onTakeStep(RobotAPI robot) {
-		
-		Vec2 porteria = robot.getOurGoal();
-		Vec2 balon = robot.getBall();
-		Vec2 posicion = robot.getPosition();//Respecto al centro del campo
-		
+			
 		
 		//Si el bal�n est� cerca
 		if(esPosibleDespejar(robot)){

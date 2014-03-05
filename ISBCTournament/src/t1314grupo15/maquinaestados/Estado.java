@@ -30,7 +30,9 @@ public abstract class Estado {
 	protected final double VEL_NORMAL = 0.6d;
 	protected final double VEL_MUY_RAPIDO = 0.8d;
 	protected final double VEL_MAX = 1d;
-	protected double ancho_del_campo = 2.74d;
+	protected final double ancho_del_campo = 2.74d;
+	
+	protected int FIELD_SIDE;
 	
 	/**
 	 * Máquina de estados que contiene a este estado.
@@ -61,6 +63,7 @@ public abstract class Estado {
 	 */
 	public final void init(RobotAPI robot) {
 		this.robot = robot;
+		FIELD_SIDE = robot.getFieldSide();
 		onInit(this.robot);
 	}
 
