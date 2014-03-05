@@ -34,6 +34,9 @@ public abstract class Estado {
 	
 	protected int FIELD_SIDE;
 	
+	protected double LIMITE1;
+	protected double LIMITE2;
+	
 	/**
 	 * Máquina de estados que contiene a este estado.
 	 * Se guarda por si se implementa una FSM en la que los estados son responsables de realizar las transiciones entre estados 
@@ -64,6 +67,8 @@ public abstract class Estado {
 	public final void init(RobotAPI robot) {
 		this.robot = robot;
 		FIELD_SIDE = robot.getFieldSide();
+		LIMITE1 = 1.145d*FIELD_SIDE;
+		LIMITE2 = ancho_del_campo/3d;
 		onInit(this.robot);
 	}
 

@@ -21,9 +21,6 @@ public class Casillas extends Estado{
 	double IR_OESTE = Math.PI/2d;
 	
 	
-	
-	
-
 	public Casillas(MaquinaEstados miMaquina) {
 		super(miMaquina);
 	}
@@ -53,7 +50,6 @@ public class Casillas extends Estado{
 				}
 			}
 			
-		
 		}
 		else{
 			
@@ -87,7 +83,7 @@ public class Casillas extends Estado{
 		//robot.setDisplayString("x="+posicion.x+" y=" + posicion.y);
 		
 		//TODO
-		//Si est� en un radio cercano aumentar lavelocidad al max
+		//Si est� en un radio cercano aumentar la velocidad al max
 		if(balon.x<=(ancho_del_campo/4d)){
 			robot.setSpeed(VEL_MUY_RAPIDO);
 			//System.out.println("MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX");
@@ -96,5 +92,6 @@ public class Casillas extends Estado{
 		robot.setDisplayString(""+posicion.x);
 	}
 	
+	//
 	
 }

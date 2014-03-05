@@ -7,12 +7,11 @@ import teams.ucmTeam.RobotAPI;
 
 public class Maldini extends Estado {
 	int FIELD_SIDE;
-	enum Estado {ESPERA,ACTIVO,DESCOLOCADO};
+	enum EstadoMaldini {ESPERA,ACTIVO,DESCOLOCADO};
 
 	private Vec2 Maldini;
-	double ROBOT_RADIO = 0.06d;
 	
-	Estado estado;
+	EstadoMaldini estado;
 
 	public Maldini(MaquinaEstados miMaquina) {
 		super(miMaquina);
@@ -33,18 +32,14 @@ public class Maldini extends Estado {
 
 	protected void onTakeStep(RobotAPI robot) {
 		
-//		Vec2 porteria = robot.getOurGoal();
-//		Vec2 balon = robot.getBall();
-//		Vec2 posicion = robot.getPosition();
-
-		this.estado = detectar_estado(robot, balon, porteria_nuestra, posicion);
+		detectar_estado(robot, balon, porteria_nuestra, posicion);
 		
-		if (estado == Estado.ESPERA) {
+		if (estado == EstadoMaldini.ESPERA) {
 			//System.out.println("estado=espera");
 			//Se mantiene la direcci�n en el sentido del bal�n
 			robot.setSteerHeading(balon.t);
 			robot.setSpeed(0d);
-		} else if (estado == Estado.ACTIVO) {
+		} else if (estado == EstadoMaldini.ACTIVO) {
 			//System.out.println("estado=activo");
 			robot.setSteerHeading(balon.t);
 			robot.setSpeed(1d);
@@ -54,7 +49,7 @@ public class Maldini extends Estado {
 				}
 			}
 		}
-		else if (estado == Estado.DESCOLOCADO) {
+		else if (estado == EstadoMaldini.DESCOLOCADO) {
 			//System.out.println("estado=descolocado");
 			robot.setSteerHeading(this.Maldini.t);
 			if (this.Maldini.r > 0.1d) {
@@ -79,9 +74,8 @@ public class Maldini extends Estado {
 		return (balon.x * lado) > 0d;	
 		
 	}
-	private Estado detectar_estado(RobotAPI robot, Vec2 balon, Vec2 porteria, Vec2 posicion){
+	private void detectar_estado(RobotAPI robot, Vec2 balon, Vec2 porteria, Vec2 posicion){
 		
-		Estado v_estado;
 		double x = balon.x - porteria.x;
 		double y = balon.y - porteria.y;
 		double distancia = calcular_distancia(balon, porteria);
@@ -114,11 +108,11 @@ public class Maldini extends Estado {
 
 
 		//Se detecta el estado
-		v_estado = Estado.ESPERA;
+		this.estado = EstadoMaldini.ESPERA;
 		robot.setDisplayString("espera");
 
 		if (this.Maldini.r > ROBOT_RADIO) {
-			v_estado = Estado.DESCOLOCADO;
+			this.estado = EstadoMaldini.DESCOLOCADO;
 			robot.setDisplayString("descolocado");
 			
 		}
@@ -126,16 +120,14 @@ public class Maldini extends Estado {
 		if ((this.Maldini.r <= 0.25d) && (balon.r < 0.3d)) {
 			//Si el bal�n est� por delante del jugador
 			if (calcular_distancia(posicion, porteria) < calcular_distancia(balon, porteria)) {
-				v_estado = Estado.ACTIVO;
+				this.estado = EstadoMaldini.ACTIVO;
 				robot.setDisplayString("activo");
 			}
 		}
 		
 		//robot.setDisplayString(""+porteria.x);
 		
-		
-		
-		return v_estado;
+		//return v_estado;
 		
 	}
 
