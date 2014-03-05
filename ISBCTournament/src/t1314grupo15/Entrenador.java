@@ -63,16 +63,17 @@ public class Entrenador extends TeamManager {
 				
 				GameDescription consulta = new GameDescription();
 				consulta.setDiferenciaGoles(diferencia_goles_act);
-				consulta.setTercio_actual(calcularTercio());
+				consulta.setTercio_actual(calcularTercio(capitan));
 							
-				
-				
+				//Se consulta al CBR una recomendación
 				Recomendacion recomendacion_actual = recomender.iniciar_jcolibri(consulta);
 				
+				//Si existe una consulta(recomendacion) anterior, entonces se aprende (pra bien o para mal)
 				if(consulta_ant!=null){
 					aprendizaje(recomendacion_ant);
 				}
 				else{
+					//Solo entra aquí la primera que se invoca a jcolbri
 					num_nuevo_caso = recomender.getNumCasos()+1; 
 				}
 							
@@ -92,7 +93,15 @@ public class Entrenador extends TeamManager {
 		return (capitan.getJustScored()==-1) || (capitan.getJustScored()==1);
 	}
 	
-	private void aprendizaje(Recomendacion recomendacion_actual){
+	
+	/**
+	 * Para aprender, se necesita un objeto CBRCase.
+	 * El objeto se construye a partir de la descripcion de la recomendación
+	 * y la solucion que se construye con los datos recogidos.
+	 * Finalmente se invoca a la funciona aprender del recomendador.
+	 * @param recomendacion
+	 */
+	private void aprendizaje(Recomendacion recomendacion){
 		CBRCase casoaprendido = new CBRCase();
 		
 		consulta_ant.setId(""+num_nuevo_caso);
@@ -100,17 +109,18 @@ public class Entrenador extends TeamManager {
 		
 		GameSolution sol = new GameSolution();
 		sol.setId(""+num_nuevo_caso);
-		sol.setEstrategia(recomendacion_actual.getStrategia());
+		sol.setEstrategia(recomendacion.getStrategia());
 		sol.setValoracion(diferencia_goles_act-diferencia_goles_ant);
 		casoaprendido.setSolution(sol);
 
 		
 		recomender.aprender(casoaprendido);
+		
+		//Se actualiza el que será el nuevo ID de proximo caso que se aprenda
 		num_nuevo_caso++;
 	}
 	
-	public int calcularTercio(){
-		RobotAPI capitan =_players[0].getRobotAPI();
+	public int calcularTercio(RobotAPI capitan){
 		int tercio;
 		long tiempoTotal = capitan.getMatchTotalTime();
 		long tiempoActual = tiempoTotal-capitan.getMatchRemainingTime();
