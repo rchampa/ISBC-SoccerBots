@@ -1,4 +1,4 @@
-package rc.team;
+package t1314grupo15;
 
 import static jcolibri.util.CopyUtils.copyCaseComponent;
 
@@ -40,7 +40,7 @@ public class Entrenador extends TeamManager {
 	
 	int num_nuevo_caso;
 
-	boolean cbr_activado = true;
+	boolean cbr_activado = false;
 
 	@Override
 	public int onConfigure() {		
@@ -70,7 +70,7 @@ public class Entrenador extends TeamManager {
 				Recomendacion recomendacion_actual = recomender.iniciar_jcolibri(consulta);
 				
 				if(consulta_ant!=null){
-					aprendizaje(recomendacion_actual);
+					aprendizaje(recomendacion_ant);
 				}
 				else{
 					num_nuevo_caso = recomender.getNumCasos()+1; 

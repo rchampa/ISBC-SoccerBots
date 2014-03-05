@@ -1,4 +1,4 @@
-package rc.team.maquinaestados;
+package t1314grupo15.maquinaestados;
 
 import java.util.HashMap;
 import java.util.Map;

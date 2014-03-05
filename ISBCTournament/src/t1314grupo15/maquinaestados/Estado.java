@@ -1,5 +1,6 @@
-package rc.team.maquinaestados;
+package t1314grupo15.maquinaestados;
 
+import EDU.gatech.cc.is.util.Vec2;
 import teams.ucmTeam.RobotAPI;
 
 /**
@@ -19,6 +20,16 @@ public abstract class Estado {
 	 * Robot que se va a manipular
 	 */
 	private RobotAPI robot;
+	protected Vec2 porteria;
+	protected Vec2 balon;
+	protected Vec2 posicion;
+	protected final double ROBOT_RADIO = 0.06d;
+	protected final double VEL_STOP = 0d;
+	protected final double VEL_LENTO = 0.25d;
+	protected final double VEL_NORMAL = 0.6d;
+	protected final double VEL_MUY_RAPIDO = 0.8d;
+	protected final double VEL_MAX = 1d;
+	protected double ancho_del_campo = 2.74d;
 	
 	/**
 	 * Máquina de estados que contiene a este estado.
@@ -57,6 +68,9 @@ public abstract class Estado {
 	 * @param robot RobotAPI controlada por el estado
 	 */
 	public final void takeStep() {
+		porteria = robot.getOurGoal();
+		balon = robot.getBall();
+		posicion = robot.getPosition();
 		this.onTakeStep(robot);
 	}
 	
@@ -87,6 +101,43 @@ public abstract class Estado {
 	 */
 	protected abstract void onTakeStep(RobotAPI robot);
 	
+	
+	/////////////////7
+	protected double calcular_distancia(Vec2 v1, Vec2 v2) {
+		return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x)	+ (v2.y - v1.y) * (v2.y - v1.y));
+	}
+	
+	protected boolean esPosibleDespejar(RobotAPI robot){
+		
+	    Vec2 pelota = robot.getBall();
+	    if (robot.getFieldSide() == 1) {
+	    	return (robot.canKick()) && (pelota.r > 0.1);
+	    }
+	    else{
+	    	return (robot.canKick()) && (pelota.r < -0.1D);
+	    }
+	}
+	
+	protected boolean estaDeFrente(double angulo, int lado) {
+		double primer_cuadrante = Math.PI/2d;
+		double segundo_cuadrante = Math.PI;
+		double tercer_cuadrante = -Math.PI/2d; 
+		double cuarto_cuadrante = 0d;
+		
+		boolean lado_izquierdo = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
+									||
+									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
+		
+		boolean lado_derecho =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
+								||
+								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
+		//Si est� a la derecha
+		if (lado == 1) {
+			return lado_izquierdo;
+		}
+		//Si est� a la izquierda
+		return lado_derecho;
+	}
 	
 	
 

@@ -1,4 +1,4 @@
-package rc.team;
+package t1314grupo15;
 
 import teams.ucmTeam.TeamManager;
 import teams.ucmTeam.UCMPlayer;
@@ -8,7 +8,7 @@ import teams.ucmTeam.UCMPlayer;
  * @author Guillermo Jimenez-Diaz (UCM)
  *
  */
-public class EquipoConFSM extends UCMPlayer{
+public class InutilesFC extends UCMPlayer{
 
 	
 	@Override

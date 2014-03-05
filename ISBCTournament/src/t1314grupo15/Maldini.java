@@ -1,8 +1,8 @@
-package rc.team;
+package t1314grupo15;
 
 import EDU.gatech.cc.is.util.Vec2;
-import rc.team.maquinaestados.Estado;
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.Estado;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 public class Maldini extends Estado {
@@ -33,9 +33,9 @@ public class Maldini extends Estado {
 
 	protected void onTakeStep(RobotAPI robot) {
 		
-		Vec2 porteria = robot.getOurGoal();
-		Vec2 balon = robot.getBall();
-		Vec2 posicion = robot.getPosition();
+//		Vec2 porteria = robot.getOurGoal();
+//		Vec2 balon = robot.getBall();
+//		Vec2 posicion = robot.getPosition();
 
 		this.estado = detectar_estado(robot, balon, porteria, posicion);
 		
@@ -139,42 +139,42 @@ public class Maldini extends Estado {
 		
 	}
 
-	private boolean estaDeFrente(double angulo, int lado) {
-		double primer_cuadrante = Math.PI/2d;
-		double segundo_cuadrante = Math.PI;
-		double tercer_cuadrante = -Math.PI/2d; 
-		double cuarto_cuadrante = 0d;
-		
-		boolean lado_izquierdo = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
-									||
-									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
-		
-		boolean lado_derecho =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
-								||
-								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
-		//Si est� a la derecha
-		if (lado == 1) {
-			return lado_izquierdo;
-		}
-		//Si est� a la izquierda
-		return lado_derecho;
-	}
-
-	private double calcular_distancia(Vec2 v1, Vec2 v2) {
-		double x = v2.x - v1.x;
-		double y = v2.y - v1.y;
-		return Math.sqrt( x*x + y*y );
-	}
-	
-	private boolean estaEnAreaRadio(Vec2 v_radio, Vec2 v){
-		
-		double radio = v_radio.r;
-		double distancia = calcular_distancia(v_radio,v);
-		
-		return radio<=distancia;
-		
-				
-		
-	}
+//	private boolean estaDeFrente(double angulo, int lado) {
+//		double primer_cuadrante = Math.PI/2d;
+//		double segundo_cuadrante = Math.PI;
+//		double tercer_cuadrante = -Math.PI/2d; 
+//		double cuarto_cuadrante = 0d;
+//		
+//		boolean lado_izquierdo = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
+//									||
+//									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
+//		
+//		boolean lado_derecho =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
+//								||
+//								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
+//		//Si est� a la derecha
+//		if (lado == 1) {
+//			return lado_izquierdo;
+//		}
+//		//Si est� a la izquierda
+//		return lado_derecho;
+//	}
+//
+//	private double calcular_distancia(Vec2 v1, Vec2 v2) {
+//		double x = v2.x - v1.x;
+//		double y = v2.y - v1.y;
+//		return Math.sqrt( x*x + y*y );
+//	}
+//	
+//	private boolean estaEnAreaRadio(Vec2 v_radio, Vec2 v){
+//		
+//		double radio = v_radio.r;
+//		double distancia = calcular_distancia(v_radio,v);
+//		
+//		return radio<=distancia;
+//		
+//				
+//		
+//	}
 
 }

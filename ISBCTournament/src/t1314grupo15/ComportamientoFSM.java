@@ -1,7 +1,7 @@
-package rc.team;
+package t1314grupo15;
 
 
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.Behaviour;
 import teams.ucmTeam.RobotAPI;
 import EDU.gatech.cc.is.util.Vec2;

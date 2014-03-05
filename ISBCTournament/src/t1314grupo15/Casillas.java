@@ -1,17 +1,17 @@
-package rc.team;
+package t1314grupo15;
 
 import EDU.gatech.cc.is.util.Vec2;
-import rc.team.maquinaestados.Estado;
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.Estado;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 public class Casillas extends Estado{
 	
 	public int FIELD_SIDE;
-	public final Vec2 W_TOP_LEFT = new Vec2(-1.37, 0.5);
-	public final Vec2 W_TOP_RIGHT = new Vec2(-1.145, 0.5);
-	public final Vec2 W_BOT_LEFT = new Vec2(-1.37, -0.5);
-	public final Vec2 W_BOT_RIGHT = new Vec2(-1.145,-0.5);
+//	public final Vec2 W_TOP_LEFT = new Vec2(-1.37, 0.5);
+//	public final Vec2 W_TOP_RIGHT = new Vec2(-1.145, 0.5);
+//	public final Vec2 W_BOT_LEFT = new Vec2(-1.37, -0.5);
+//	public final Vec2 W_BOT_RIGHT = new Vec2(-1.145,-0.5);
 	
 	final double porteria_top = 0.25d;
 	final double porteria_bot = -0.25d;
@@ -21,15 +21,8 @@ public class Casillas extends Estado{
 	double IR_ESTE = 0D;
 	double IR_OESTE = Math.PI/2d;
 	
-	double VEL_STOP = 0d;
-	double VEL_LENTO = 0.25d;
-	double VEL_NORMAL = 0.6d;
-	double VEL_MUY_RAPIDO = 0.8d;
-	double VEL_MAX = 1d;
 	
-	double robot_radio = 0.6d;
 	
-	double ancho_del_campo = 2.74d;
 	
 
 	public Casillas(MaquinaEstados miMaquina) {
@@ -108,39 +101,5 @@ public class Casillas extends Estado{
 		robot.setDisplayString(""+posicion.x);
 	}
 	
-	private double calcular_distancia(Vec2 v1, Vec2 v2) {
-		return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x)	+ (v2.y - v1.y) * (v2.y - v1.y));
-	}
 	
-	private boolean esPosibleDespejar(RobotAPI robot){
-		
-	    Vec2 pelota = robot.getBall();
-	    if (robot.getFieldSide() == 1) {
-	    	return (robot.canKick()) && (pelota.r > 0.1);
-	    }
-	    else{
-	    	return (robot.canKick()) && (pelota.r < -0.1D);
-	    }
-	}
-	
-	private boolean estaDeFrente(double angulo, int lado) {
-		double primer_cuadrante = Math.PI/2d;
-		double segundo_cuadrante = Math.PI;
-		double tercer_cuadrante = -Math.PI/2d; 
-		double cuarto_cuadrante = 0d;
-		
-		boolean lado_izquierdo = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
-									||
-									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
-		
-		boolean lado_derecho =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
-								||
-								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
-		//Si est� a la derecha
-		if (lado == 1) {
-			return lado_izquierdo;
-		}
-		//Si est� a la izquierda
-		return lado_derecho;
-	}
 }

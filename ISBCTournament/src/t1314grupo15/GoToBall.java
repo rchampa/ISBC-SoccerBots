@@ -1,7 +1,7 @@
-package rc.team;
+package t1314grupo15;
 
-import rc.team.maquinaestados.Estado;
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.Estado;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 /**

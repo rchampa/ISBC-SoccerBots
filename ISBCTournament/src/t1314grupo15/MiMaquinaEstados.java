@@ -1,10 +1,10 @@
-package rc.team;
+package t1314grupo15;
 
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 /**
- * Ejemplo de m�quina de estados con 2 estados: Wander y GoToBall. Inicialmente estaremos en el estado Wander.
+ * Ejemplo de m�quina de estados con 2 estados: Wander y GoToBall. Inicialmente estaremos en el estado Wander.
  * El comportamiento que usa esta máquina de estados será el responsable de realiazr los cambios de estado.
  * @author Guillermo Jimenez-Diaz (UCM)
  *

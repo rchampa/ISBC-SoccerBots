@@ -1,8 +1,8 @@
-package rc.team;
+package t1314grupo15;
 
 import EDU.gatech.cc.is.util.Vec2;
-import rc.team.maquinaestados.Estado;
-import rc.team.maquinaestados.MaquinaEstados;
+import t1314grupo15.maquinaestados.Estado;
+import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
 
 public class Inutil extends Estado{
@@ -60,14 +60,5 @@ public class Inutil extends Estado{
 		
 	}
 	
-	private boolean esPosibleDespejar(RobotAPI robot){
-		
-	    Vec2 pelota = robot.getBall();
-	    if (robot.getFieldSide() == 1) {
-	    	return (robot.canKick()) && (pelota.r > 0.1);
-	    }
-	    else{
-	    	return (robot.canKick()) && (pelota.r < -0.1D);
-	    }
-	}
+	
 }
