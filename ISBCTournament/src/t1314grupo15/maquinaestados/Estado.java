@@ -119,42 +119,13 @@ public abstract class Estado {
 	
 	protected boolean esPosibleDespejar(RobotAPI robot){
 		
-	    Vec2 pelota = robot.getBall();
 	    if (robot.getFieldSide() == 1) {
-	    	return (robot.canKick()) && (pelota.r > 0.1);
+	    	return (robot.canKick()) && (balon.r > 0.1);
 	    }
 	    else{
-	    	return (robot.canKick()) && (pelota.r < -0.1D);
+	    	return (robot.canKick()) && (balon.r < -0.1D);
 	    }
 	}
-
-
-//	/**
-//	 * Devuelve a donde mira el robot
-//	 * @param angulo que tiene el robot
-//	 * @return -1 si mira hacia el oeste y 1 si mira al este
-//	 */
-//	protected int aDondeMiraElRobot(double angulo) {
-//		double primer_cuadrante = Math.PI/2d;
-//		double segundo_cuadrante = Math.PI;
-//		double tercer_cuadrante = -Math.PI/2d; 
-//		double cuarto_cuadrante = 0d;
-//		
-//		boolean lado_oeste = 	( (angulo>primer_cuadrante) && (angulo<=segundo_cuadrante) ) 
-//									||
-//									( (angulo>=(segundo_cuadrante*-1d)) && (angulo<tercer_cuadrante) );
-////		
-////		boolean lado_este =	( (angulo>=cuarto_cuadrante) && (angulo<primer_cuadrante) ) 
-////								||
-////								( (angulo>tercer_cuadrante) && (angulo<=cuarto_cuadrante) );
-//		
-//		if(lado_oeste)
-//			return -1;
-//		else//lado este
-//			return 1;
-//
-//
-//	}
 	
 	protected boolean estaMirandoDeFrente(double angulo) {
 		double primer_cuadrante = Math.PI/2d;
@@ -192,5 +163,23 @@ public abstract class Estado {
 		
 	}
 	
+	protected boolean seTienePosecionDelBalon(){
+		//Soy el que está más cerca al balón y (el angulo que forma el balon y la porteria contraria es inferior a PI)
+	    return 	robot.closestToBall() && 
+	    		(Math.abs(normalizarAngulo(porteria_contraria.t - balon.t)) < (Math.PI/2d) );
+	}
+	
+	protected double normalizarAngulo(double angulo){
+		
+		if(angulo>Math.PI){
+			return angulo+(2*(Math.PI));
+		}
+		
+		if(angulo<-Math.PI){
+			return angulo-(2*(Math.PI));
+		}
+		
+		return angulo;
+	}
 
 }
