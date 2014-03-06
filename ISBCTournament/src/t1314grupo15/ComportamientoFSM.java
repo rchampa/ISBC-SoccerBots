@@ -70,7 +70,7 @@ public class ComportamientoFSM extends Behaviour{
 			return RobotAPI.ROBOT_OK;
 		}
 		else{
-			maquina.cambiarEstado(Inutil.class.getSimpleName());
+			maquina.cambiarEstado(Messi.class.getSimpleName());
 			maquina.takeStep();
 			return RobotAPI.ROBOT_OK;
 		}

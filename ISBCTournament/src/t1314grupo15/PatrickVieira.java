@@ -11,6 +11,7 @@ public class PatrickVieira extends Estado{
 					ESPERA,//Espera a que el balon este en su zona
 					DESCOLOCADO,//no tiene el balon y no está bien colocado( cuando esté colocado pasará a espera)
 					ACTIVO,//El balon está en su zona y va a por él
+					LEJOS //Est� mas alante de su �rea asignada
 					};
 	EstadoPatrick estadoActual;
 	Vec2 vector_patrick = new Vec2();
@@ -43,7 +44,18 @@ public class PatrickVieira extends Estado{
 		
 		
 		detectar_estado(robot);
-		
+		if (estadoActual==EstadoPatrick.DESCOLOCADO) {
+			if (robot.canKick()) {
+				robot.kick();
+			}
+			//Va hacia el centro del campo
+			Vec2 aux = new Vec2(centro_campo);
+			aux.sub(posicion);
+			robot.setSteerHeading(aux.t);
+			robot.setSpeed(VEL_NORMAL);
+			//robot.avoidCollisions();
+			robot.setDisplayString("LEJOS");
+		}
 		if(estadoActual==EstadoPatrick.DESCOLOCADO){
 			//Va hacia el centro del campo
 			Vec2 aux = new Vec2(centro_campo);
@@ -68,6 +80,12 @@ public class PatrickVieira extends Estado{
 //				//Va hacia el valon
 //				robot.setSpeed(VEL_MAX);
 //			}
+			if (robot.alignedToBallandGoal()) {
+				if (robot.canKick()) {
+					robot.kick();
+				}
+			}
+			
 			robot.setDisplayString("ACTIVO");
 		}
 		else{//EstadoPatrick.ESPERA
@@ -91,8 +109,10 @@ public class PatrickVieira extends Estado{
 				estadoActual = EstadoPatrick.DESCOLOCADO;
 			}
 			return;
-		}
-		else{
+		} else if ( (posicion.x>LIMITE2 && FIELD_SIDE==-1) || (posicion.x<LIMITE2 && FIELD_SIDE==1) ) {
+			estadoActual = EstadoPatrick.LEJOS;
+			
+		} else{
 			estadoActual = EstadoPatrick.DESCOLOCADO;
 			
 			if( (posicion.x<LIMITE2 && FIELD_SIDE==-1) || (posicion.x>LIMITE2 && FIELD_SIDE==1) ){

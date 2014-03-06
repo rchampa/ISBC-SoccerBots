@@ -43,14 +43,14 @@ public class Bloqueador extends Estado{
 
 	@Override
 	protected void onTakeStep(RobotAPI robot) {
-		if (robot.getPosition().x<-(ancho_del_campo*robot.getFieldSide()/2.35)) {
+		if (robot.getPosition().x<-(ancho_del_campo*robot.getFieldSide()/2.35)) {//Si no estamos cerca de la portería rival en el eje X
 		//if(robot.getPosition().x<ancho_del_campo/2.7) {
 			Vec2 p = robot.getOpponentsGoal();
 			p.sety(p.y+0.5);
 			robot.setSteerHeading(p.t);
 			//System.out.println(""+robot.getOpponentsGoal().t);
 			robot.setSpeed(VEL_MAX);
-		} else {
+		} else { //Si estamos cerca de la portería rival en el eje X
 			//robot.blockClosest();
 			Vec2 p = robot.getClosestOpponent();
 			p.setx(p.x+robot.getFieldSide()*ROBOT_RADIO);
