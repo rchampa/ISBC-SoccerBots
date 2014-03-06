@@ -41,6 +41,8 @@ public class Entrenador extends TeamManager {
 	int num_nuevo_caso;
 
 	boolean cbr_activado = false;
+	
+	int estrategia = 0;
 
 	@Override
 	public int onConfigure() {		
@@ -67,6 +69,9 @@ public class Entrenador extends TeamManager {
 							
 				//Se consulta al CBR una recomendación
 				Recomendacion recomendacion_actual = recomender.iniciar_jcolibri(consulta);
+				recomendacion_actual.getStrategia();
+				estrategia = 1;
+				re_asignar_estrategia();
 				
 				//Si existe una consulta(recomendacion) anterior, entonces se aprende (pra bien o para mal)
 				if(consulta_ant!=null){
@@ -83,9 +88,18 @@ public class Entrenador extends TeamManager {
 				
 				tiempo_ultima_consulta = tiempo_actual;
 			}
-		
+			
 		}
 		
+	}
+	
+	private void re_asignar_estrategia(){
+		
+		_players[0].setBehaviour(_behaviours[estrategia]);
+		_players[1].setBehaviour(_behaviours[estrategia]);
+		_players[2].setBehaviour(_behaviours[estrategia]);
+		_players[3].setBehaviour(_behaviours[estrategia]);
+		_players[4].setBehaviour(_behaviours[estrategia]);
 	}
 	
 	private boolean hayGol(RobotAPI capitan){
@@ -136,13 +150,14 @@ public class Entrenador extends TeamManager {
 
 	@Override
 	public Behaviour getDefaultBehaviour(int id) {
-		return this._behaviours[0];
+		return this._behaviours[estrategia];
 	}
 
 	@Override
 	public Behaviour[] createBehaviours() {
 		return new Behaviour[] {
-				new ComportamientoFSM()
+				new ComportamientoFSM(),
+				new ComportamientoDefensivo()
 		};
 	}
 

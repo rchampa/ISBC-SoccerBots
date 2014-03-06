@@ -19,6 +19,8 @@ public class PatrickVieira extends Estado{
 	Vec2 v_limite = new Vec2(LIMITE2,0);
 	
 	final double RADIO_ACCION = 1d;
+	
+	final double RADIO_BALON = 0.01;
 
 	public PatrickVieira(MaquinaEstados miMaquina) {
 		super(miMaquina);
@@ -51,14 +53,21 @@ public class PatrickVieira extends Estado{
 			robot.setDisplayString("DESCOLOCADO");
 		}
 		else if(estadoActual==EstadoPatrick.ACTIVO){
-			robot.setSteerHeading(balon.t);
-			//Va hacia el valon
-			robot.setSpeed(VEL_MAX);
-			if(balon.r<0.2){
-				robot.setBehindBall(robot.getOpponentsGoal());
-				if(robot.canKick())
-					robot.kick();
-			}
+			
+			irAporPelota(robot);
+			
+//			if(balon.r<0.1){
+//				robot.setBehindBall(robot.getOpponentsGoal());
+//				if(robot.canKick() && estaMirandoDeFrente(posicion.t)){
+//					System.out.println("MIERDAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//					robot.kick();
+//				}
+//			}
+//			else{
+//				robot.setSteerHeading(balon.t);
+//				//Va hacia el valon
+//				robot.setSpeed(VEL_MAX);
+//			}
 			robot.setDisplayString("ACTIVO");
 		}
 		else{//EstadoPatrick.ESPERA
@@ -78,53 +87,84 @@ public class PatrickVieira extends Estado{
 		
 		if(balon.r<RADIO_ACCION){
 			estadoActual = EstadoPatrick.ACTIVO;
-			if(posicion.x<LIMITE2){
+			if( (posicion.x<LIMITE2 && FIELD_SIDE==-1) || (posicion.x>LIMITE2 && FIELD_SIDE==1) ){
 				estadoActual = EstadoPatrick.DESCOLOCADO;
-				System.out.println("AAAAAAAAAAAAAAAAAAa");
 			}
 			return;
 		}
 		else{
 			estadoActual = EstadoPatrick.DESCOLOCADO;
 			
-			if(posicion.x<LIMITE2){
+			if( (posicion.x<LIMITE2 && FIELD_SIDE==-1) || (posicion.x>LIMITE2 && FIELD_SIDE==1) ){
 				estadoActual = EstadoPatrick.ESPERA;
-				System.out.println("AAAAAAAAAAAAAAAAAAa");
 			}
 			
 		}
 		
-		
-		
-		
-//		
-//		if(estaMirandoDeFrente(posicion.t)){
-//			 
-//		}
-//		else{//Si esta mirando hacia su porteria, es que el balon esta detrás
-//			v_limite.sety(balon.y);
-//			distancia_permitida = calcular_distancia(posicion, v_limite);
-//			
-//			if(){
-//				
-//			}
-//		}
-//		 
-//		
-//		boolean balonEstaDetras = elBalonEstaDetrasDelJugador();
-//		
-//		boolean cercaAlBalon = robot.closestToBall(); 
-		
-//		if(balonEstaDetras){
-//			double distancia = balon.r;
-//			if(distancia>)
-//				estadoActual = EstadoPatrick.DESCOLOCADO;
-//		}
-//		else{
-//			
-//		}
-	
-		
-		
 	}
+	
+	protected void irAporPelota(RobotAPI robot)
+	{
+
+		Vec2 detrasDelBalon = getVectorDetrasPelota();
+		Vec2 rodeo = getVectorRodearPelota(detrasDelBalon);
+
+		robot.setSteerHeading(rodeo.t);
+		if (balon.r > 0.5D)
+		{
+			robot.avoidCollisions();
+		}
+
+		robot.setSpeed(VEL_MAX);
+	}
+	
+	private Vec2 getVectorRodearPelota(Vec2 vectorAbalon)
+	{
+		Vec2 detrasDelBalon = new Vec2(vectorAbalon);
+		Vec2 ejeCentral = new Vec2(0.0d, 0.0d);
+		ejeCentral.sub(balon);
+
+		detrasDelBalon.setr(this.ROBOT_RADIO * 0.3d);
+		detrasDelBalon.add(balon);
+
+
+		if (Math.abs(normalizarAngulo(vectorAbalon.t - ejeCentral.t)) > (Math.PI/2d))
+		{
+			if (normalizarAngulo(detrasDelBalon.t - balon.t) > 0d) {
+				detrasDelBalon.rotate(/*1.2D * */Math.asin(Math.min(1d, ROBOT_RADIO / balon.r)));
+			} else {
+				detrasDelBalon.rotate(/*-1.2D * */-Math.asin(Math.min(1d, ROBOT_RADIO / balon.r)));
+			}
+		}
+		else if ((detrasDelBalon.r < ROBOT_RADIO) && (seTienePosecionDelBalon()))
+		{
+			double dribble_cheat = 0.5D;
+			if (normalizarAngulo(detrasDelBalon.t - balon.t) > 0.0D) {
+				detrasDelBalon.rotate(dribble_cheat);
+			} else {
+				detrasDelBalon.rotate(-dribble_cheat);
+			}
+		}
+		return detrasDelBalon;
+	}
+
+	private Vec2 getVectorDetrasPelota()
+	{
+		Vec2 detrasPelota = new Vec2(porteria_contraria);
+		detrasPelota.sub(balon);
+		if (detrasPelota.r > 0.5)
+		{
+			detrasPelota = new Vec2(balon);
+			detrasPelota.sub(porteria_contraria);
+			detrasPelota.setr(ROBOT_RADIO * 1.0d);
+		}
+		else
+		{
+			detrasPelota.setr(ROBOT_RADIO * 1.5d);
+		}
+		return detrasPelota;
+	}
+
+	
+	
 }
