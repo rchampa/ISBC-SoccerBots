@@ -71,6 +71,23 @@ public abstract class Estado {
 		LIMITE2 = (ancho_del_campo/5d)*FIELD_SIDE;
 		onInit(this.robot);
 	}
+	
+	public void actualizarLimites(int nivel_defensa){
+		
+		if(nivel_defensa==0){
+			LIMITE1 = 1.145d*FIELD_SIDE;
+			LIMITE2 = (ancho_del_campo/5d)*FIELD_SIDE;
+		}
+		else if(nivel_defensa<0){
+			LIMITE1 = 0.9d*FIELD_SIDE;
+			LIMITE2 = (ancho_del_campo/6d)*FIELD_SIDE;
+		}
+		else{
+			LIMITE1 = 1.4d*FIELD_SIDE;
+			LIMITE2 = (ancho_del_campo/4d)*FIELD_SIDE;
+		}
+		
+	}
 
 	/**
 	 * TakeStep del estado. Manipula el robot
@@ -82,6 +99,8 @@ public abstract class Estado {
 		balon = robot.getBall();
 		posicion = robot.getPosition();
 		this.onTakeStep(robot);
+		System.out.println(LIMITE1);
+		System.out.println(LIMITE2);
 	}
 	
 	/**

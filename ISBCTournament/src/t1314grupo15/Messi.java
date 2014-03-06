@@ -1,6 +1,5 @@
 package t1314grupo15;
 
-import EDU.gatech.cc.is.util.Vec2;
 import t1314grupo15.maquinaestados.Estado;
 import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;

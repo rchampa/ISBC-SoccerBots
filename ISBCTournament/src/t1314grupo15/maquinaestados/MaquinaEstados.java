@@ -1,9 +1,9 @@
 package t1314grupo15.maquinaestados;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import teams.ucmTeam.RobotAPI;
+
 
 /**
  * <p>Clase abstracta utilizada para crear una máquina de estados finita (FSM) utilizadas para controlar una RobotAPI.
@@ -141,6 +141,19 @@ public abstract class MaquinaEstados {
 	 * @return Nombre del estado inicial
 	 */
 	protected abstract String nombreEstadoInicial();
+
+	public void actualizaEstados(int nivel_defensa) {
+		Set<String> claves = estados.keySet();
+		
+		Iterator<String> claves_it = claves.iterator();
+		
+		while(claves_it.hasNext()){
+			Estado e = estados.get(claves_it.next());
+			e.actualizarLimites(nivel_defensa);
+			
+		}
+		
+	}
 
 	
 }

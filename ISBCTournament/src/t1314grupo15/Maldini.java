@@ -1,9 +1,9 @@
 package t1314grupo15;
 
-import EDU.gatech.cc.is.util.Vec2;
 import t1314grupo15.maquinaestados.Estado;
 import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.RobotAPI;
+import EDU.gatech.cc.is.util.Vec2;
 
 public class Maldini extends Estado {
 	int FIELD_SIDE;
@@ -72,7 +72,7 @@ public class Maldini extends Estado {
 	
 	private void detectar_estado(RobotAPI robot, Vec2 balon, Vec2 porteria, Vec2 posicion){
 		
-		double x = balon.x - porteria.x;
+		//double x = balon.x - porteria.x;
 		double y = balon.y - porteria.y;
 		double distancia = calcular_distancia(balon, porteria);
 		double alfa = Math.asin( y / distancia);//con la distancia se evita la divisi�n por cero

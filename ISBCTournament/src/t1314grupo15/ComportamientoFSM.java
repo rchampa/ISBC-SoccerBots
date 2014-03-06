@@ -4,7 +4,6 @@ package t1314grupo15;
 import t1314grupo15.maquinaestados.MaquinaEstados;
 import teams.ucmTeam.Behaviour;
 import teams.ucmTeam.RobotAPI;
-import EDU.gatech.cc.is.util.Vec2;
 
 /**
  * Comportamiento de ejemplo que hace uso de una máquina de estados. En este caso empleamos una máquina de estados
@@ -20,6 +19,8 @@ public class ComportamientoFSM extends Behaviour{
 	 * Máquina de estados que gobierna el comportamiento
 	 */
 	private MaquinaEstados maquina;
+	private static boolean hayActualizacion=false;
+	private static int nivel_defensa=0;
 
 	@Override
 	public void configure() {
@@ -49,31 +50,36 @@ public class ComportamientoFSM extends Behaviour{
 	@Override
 	public int takeStep() {
 		
+		if(hayActualizacion){
+			maquina.actualizaEstados(nivel_defensa);
+			hayActualizacion=false;
+		}
+		
 		if(myRobotAPI.getPlayerNumber()==0){
 			maquina.cambiarEstado(Casillas.class.getSimpleName());
 			maquina.takeStep();
-			return RobotAPI.ROBOT_OK;
 		}
 		else if(myRobotAPI.getPlayerNumber()==1){
 			maquina.cambiarEstado(Maldini.class.getSimpleName());
 			maquina.takeStep();
-			return RobotAPI.ROBOT_OK;
 		}
 		else if(myRobotAPI.getPlayerNumber()==2){
 			maquina.cambiarEstado(Bloqueador.class.getSimpleName());
 			maquina.takeStep();
-			return RobotAPI.ROBOT_OK;
 		}
 		else if(myRobotAPI.getPlayerNumber()==3){
 			maquina.cambiarEstado(PatrickVieira.class.getSimpleName());
 			maquina.takeStep();
-			return RobotAPI.ROBOT_OK;
 		}
 		else{
 			maquina.cambiarEstado(Messi.class.getSimpleName());
 			maquina.takeStep();
-			return RobotAPI.ROBOT_OK;
+			
 		}
+		
+		
+		
+		return RobotAPI.ROBOT_OK;
 		
 //		
 //		Vec2 ball= myRobotAPI.getBall();		
@@ -87,6 +93,11 @@ public class ComportamientoFSM extends Behaviour{
 //		// delego siempre en la máquina de estados para ejecutar el takeStep
 		//maquina.takeStep();
 		//return RobotAPI.ROBOT_OK;
+	}
+	
+	public static void actualizarComportamientos(int nivel_defensa_nuevo){
+		hayActualizacion = true;
+		nivel_defensa = nivel_defensa_nuevo;
 	}
 
 }

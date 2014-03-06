@@ -1,9 +1,6 @@
 package t1314grupo15;
 
 import static jcolibri.util.CopyUtils.copyCaseComponent;
-
-import java.util.ArrayList;
-
 import jcolibri.cbrcore.CBRCase;
 import jcolibri.soccerbots.GameDescription;
 import jcolibri.soccerbots.GameSolution;
@@ -21,28 +18,26 @@ import teams.ucmTeam.TeamManager;
  */
 public class Entrenador extends TeamManager {
 	
-	long tiempo=0;
+	private long tiempo_ultima_consulta = 0;
+	private long tiempo_actual;
 	
-	long tiempo_ultima_consulta = 0;
-	long tiempo_actual;
+	private final long N = 5000;
+	private int diferencia_goles_ant = 0;
 	
-	final long N = 5000;
-	int diferencia_goles_ant = 0;
+	private int diferencia_goles_act=0;
 	
-	int diferencia_goles_act=0;
 	
-	ArrayList<Integer> listaMarcadores = new ArrayList<Integer>();
+	private GameDescription consulta_ant;
+	private Recomendacion recomendacion_ant;
 	
-	GameDescription consulta_ant;
-	Recomendacion recomendacion_ant;
+	private Recomender recomender = new Recomender();
 	
-	Recomender recomender = new Recomender();
-	
-	int num_nuevo_caso;
+	private int num_nuevo_caso;
 
-	boolean cbr_activado = false;
+	private boolean cbr_activado = true;
 	
-	int estrategia = 0;
+	private int estrategia = 0;
+	private ComportamientoFSM comportamiento;
 
 	@Override
 	public int onConfigure() {		
@@ -69,8 +64,8 @@ public class Entrenador extends TeamManager {
 							
 				//Se consulta al CBR una recomendación
 				Recomendacion recomendacion_actual = recomender.iniciar_jcolibri(consulta);
-				recomendacion_actual.getStrategia();
-				estrategia = 1;
+				estrategia = recomendacion_actual.getStrategia();
+				
 				re_asignar_estrategia();
 				
 				//Si existe una consulta(recomendacion) anterior, entonces se aprende (pra bien o para mal)
@@ -95,11 +90,14 @@ public class Entrenador extends TeamManager {
 	
 	private void re_asignar_estrategia(){
 		
-		_players[0].setBehaviour(_behaviours[estrategia]);
-		_players[1].setBehaviour(_behaviours[estrategia]);
-		_players[2].setBehaviour(_behaviours[estrategia]);
-		_players[3].setBehaviour(_behaviours[estrategia]);
-		_players[4].setBehaviour(_behaviours[estrategia]);
+//		_players[0].setBehaviour(_behaviours[estrategia]);
+//		_players[1].setBehaviour(_behaviours[estrategia]);
+//		_players[2].setBehaviour(_behaviours[estrategia]);
+//		_players[3].setBehaviour(_behaviours[estrategia]);
+//		_players[4].setBehaviour(_behaviours[estrategia]);
+		
+		ComportamientoFSM.actualizarComportamientos(estrategia);
+		
 	}
 	
 	private boolean hayGol(RobotAPI capitan){
@@ -150,14 +148,14 @@ public class Entrenador extends TeamManager {
 
 	@Override
 	public Behaviour getDefaultBehaviour(int id) {
-		return this._behaviours[estrategia];
+		return this._behaviours[0];
 	}
 
 	@Override
 	public Behaviour[] createBehaviours() {
+		comportamiento = new ComportamientoFSM();
 		return new Behaviour[] {
-				new ComportamientoFSM(),
-				new ComportamientoDefensivo()
+				comportamiento,
 		};
 	}
 
