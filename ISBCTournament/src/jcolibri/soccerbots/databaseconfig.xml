@@ -1,7 +1,0 @@
-<DataBaseConfiguration>
-	<HibernateConfigFile>jcolibri/soccerbots/hibernate.cfg.xml</HibernateConfigFile>
-	<DescriptionMappingFile>jcolibri/soccerbots/GameDescription.hbm.xml</DescriptionMappingFile>
-	<DescriptionClassName>jcolibri.soccerbots.GameDescription</DescriptionClassName>
-	<SolutionMappingFile>jcolibri/soccerbots/GameSolution.hbm.xml</SolutionMappingFile>
-	<SolutionClassName>jcolibri.soccerbots.GameSolution</SolutionClassName>
-</DataBaseConfiguration>
